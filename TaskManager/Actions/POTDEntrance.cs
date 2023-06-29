@@ -1,4 +1,4 @@
-﻿/*
+/*
 DeepDungeon is licensed under a
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 
@@ -169,9 +169,9 @@ namespace DeepCombined.TaskManager.Actions
 
             Logger.Verbose("Starting Level {0}", _bettertargetFloor.Start);
 
-            var lm = _bettertargetFloor.End < sdSaveStates[UseSaveSlot].Floor;
+            var lm = _bettertargetFloor.End > sdSaveStates[UseSaveSlot].Floor;
 
-            var notfixed = !sdSaveStates[UseSaveSlot].FixedParty;
+            var notfixed = sdSaveStates[UseSaveSlot].FixedParty;
             var cjChanged = sdSaveStates[UseSaveSlot].Class != Core.Me.CurrentJob;
             var partyData = sdSaveStates[UseSaveSlot].PartyMembers.ToList();
             var saved = sdSaveStates[UseSaveSlot].Saved;
@@ -196,7 +196,7 @@ namespace DeepCombined.TaskManager.Actions
             if (Settings.Instance.StartAt51 && sdSaveStates[UseSaveSlot].Floor < Constants.SelectedDungeon.CheckPointLevel)
                 Logger.Verbose("Resetting save data: Level start ({0}) is Less than checkpoint floor: {1}", sdSaveStates[UseSaveSlot].Floor, Constants.SelectedDungeon.CheckPointLevel);
 
-            return saved && (lm || notfixed || cjChanged || partySize || _error || Settings.Instance.StartAt51 && sdSaveStates[UseSaveSlot].Floor < Constants.SelectedDungeon.CheckPointLevel);
+            return saved && (lm || notfixed || partySize || _error || Settings.Instance.StartAt51 && sdSaveStates[UseSaveSlot].Floor < Constants.SelectedDungeon.CheckPointLevel);
         }
 
         private async Task ReadStartingLevel()
